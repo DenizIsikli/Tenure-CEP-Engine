@@ -1,0 +1,13 @@
+@App:name('P4Events')
+@App:description('P4 Career advancement: research output from OpenAlex')
+
+@source(type='http', receiver.url='http://0.0.0.0:8006/publications',
+        @map(type='json'))
+define stream PublicationStream (authorId string, workId string, publicationDate string);
+
+@sink(type='log', prefix='ResearchOutputUpdated')
+define stream ResearchOutputUpdated (authorId string, workId string);
+
+from PublicationStream
+select authorId, workId
+insert into ResearchOutputUpdated;
