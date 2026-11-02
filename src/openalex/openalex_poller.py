@@ -1,7 +1,3 @@
-"""Polls OpenAlex for new works by one author and sends each new one to Siddhi.
-
-Usage: python3 openalex_poller.py <AUTHOR_ID> [SINCE_DATE]
-"""
 import json, os, sys, time, urllib.parse, urllib.request
 from pathlib import Path
 
