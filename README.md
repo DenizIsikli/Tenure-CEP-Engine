@@ -1,40 +1,46 @@
-# poedss-talent-cep
+# Tenure-CEP-Engine
 
 Group 27, DTU 02268 POEDSS final project: Talent Management Processes at DTU.
-Event sources, CEP (Siddhi) and PAIS (DCR + Camunda).
+P4 Career advancement (tenure track): OpenAlex research output → Siddhi (CEP) → DCR engine (PAIS).
 
 ## Structure
+
 ```
-scripts/            setup and run scripts (Docker + Siddhi)
-siddhi/             Siddhi apps (.siddhi), loaded by the runner
-sources/openalex/   event source 1: research output from the OpenAlex API
-sources/hr_events/  event source 2: simulated HR event stream
-pais/dcr/           connector between Siddhi and the DCR engine (P4)
-pais/camunda/       connector between Siddhi and Camunda (BPMN process)
-models/dcr/         DCR graphs, AS-IS and TO-BE (processdoctor Editor XML)
-models/bpmn/        BPMN models
-docs/               screenshots, notes for the report
+scripts/        setup and run scripts (Docker + Siddhi)
+siddhi/         Siddhi apps (.siddhi), loaded by the runner
+src/openalex/   event source: research output from the OpenAlex API
+pais/dcr/       connector between Siddhi and the DCR engine
 ```
 
 ## Quick start (Debian/Ubuntu)
+
 ```bash
-scripts/setup.sh              # installs Docker if missing, pulls Siddhi images, creates .env
-scripts/start_editor.sh       # editor at http://localhost:9390/editor
-scripts/send_test_event.sh    # should print HTTP 200
-scripts/logs.sh editor        # see the ResearchOutputUpdated line
+scripts/setup.sh          # installs Docker if missing, pulls Siddhi images, creates .env
+scripts/start_editor.sh   # editor at http://localhost:9390/editor
 ```
 
-Run the apps in `siddhi/` without the editor (demo):
+Test that Siddhi receives events (should print HTTP 200):
+
+```bash
+curl -s -o /dev/null -w "HTTP %{http_code}\n" -X POST http://localhost:8006/publications \
+  -H "Content-Type: application/json" \
+  -d '{"event":{"authorId":"A123","workId":"W456","publicationDate":"2026-10-01"}}'
+docker logs -f siddhi-editor   # look for the ResearchOutputUpdated line
+```
+
+## Run without the editor (demo)
+
 ```bash
 scripts/run_siddhi.sh
-scripts/run_poller.sh A1234567890 2026-01-01
-scripts/logs.sh runner
+python3 src/openalex/openalex_poller.py A1234567890 2026-01-01
+docker logs -f siddhi-runner
 ```
 
 Find an OpenAlex author ID: `https://api.openalex.org/authors?search=NAME`.
+Stop everything with `scripts/stop.sh`.
 
-Other scripts: `scripts/export_apps.sh` copies apps saved in the editor into `siddhi/`,
-`scripts/stop.sh` stops everything.
+## Notes
 
-Note: the editor and the runner both use port 8006, so only one runs at a time.
-From inside Docker, services on your own machine are at `http://host.docker.internal:PORT`.
+- The editor and the runner both use port 8006, so only one runs at a time.
+- Apps written in the editor are not saved to the repo; paste them into `siddhi/`.
+- From inside Docker, services on your own machine are at `http://host.docker.internal:PORT`.
