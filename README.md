@@ -1,46 +1,42 @@
 # Tenure-CEP-Engine
 
 Group 27, DTU 02268 POEDSS final project: Talent Management Processes at DTU.
-P4 Career advancement (tenure track): OpenAlex research output → Siddhi (CEP) → DCR engine (PAIS).
+Event sources feed a CEP engine (Siddhi), which communicates in both directions with
+process-aware information systems (PAIS).
+
+## Architecture
+
+```
+event sources ──► Siddhi (CEP) ◄──► PAIS
+```
+
+| Component     | Technology           | Description                                                          |
+| ------------- | -------------------- | -------------------------------------------------------------------- |
+| Event sources | Python               | Send events to Siddhi over HTTP                                      |
+| CEP           | Siddhi (Docker)      | Filters, counts and correlates events, and forwards them to the PAIS |
+| PAIS          | DCR engine / Camunda | Execute the process models and report executed events back to Siddhi |
 
 ## Structure
 
 ```
-scripts/        setup and run scripts (Docker + Siddhi)
-siddhi/         Siddhi apps (.siddhi), loaded by the runner
-src/openalex/   event source: research output from the OpenAlex API
-pais/dcr/       connector between Siddhi and the DCR engine
+siddhi/     Siddhi apps (.siddhi), one per process
+src/        event sources
+pais/       one folder per PAIS, each with its process model and connector
 ```
 
-## Quick start (Debian/Ubuntu)
+## Processes
 
-```bash
-scripts/setup.sh          # installs Docker if missing, pulls Siddhi images, creates .env
-scripts/start_editor.sh   # editor at http://localhost:9390/editor
-```
+| Process                              | Event source                               | PAIS                                             | Model                                     |
+| ------------------------------------ | ------------------------------------------ | ------------------------------------------------ | ----------------------------------------- |
+| P4 Career advancement (tenure track) | OpenAlex research output (`src/openalex/`) | DCR engine, processdoctor's dcr-js (`pais/dcr/`) | `pais/dcr/p4_career_advancement_tobe.xml` |
 
-Test that Siddhi receives events (should print HTTP 200):
+## Setup
 
-```bash
-curl -s -o /dev/null -w "HTTP %{http_code}\n" -X POST http://localhost:8006/publications \
-  -H "Content-Type: application/json" \
-  -d '{"event":{"authorId":"A123","workId":"W456","publicationDate":"2026-10-01"}}'
-docker logs -f siddhi-editor   # look for the ResearchOutputUpdated line
-```
-
-## Run without the editor (demo)
-
-```bash
-scripts/run_siddhi.sh
-python3 src/openalex/openalex_poller.py A1234567890 2026-01-01
-docker logs -f siddhi-runner
-```
-
-Find an OpenAlex author ID: `https://api.openalex.org/authors?search=NAME`.
-Stop everything with `scripts/stop.sh`.
+See [SETUP.md](SETUP.md) for installation on Linux and Windows and how to run a case.
 
 ## Notes
 
-- The editor and the runner both use port 8006, so only one runs at a time.
-- Apps written in the editor are not saved to the repo; paste them into `siddhi/`.
-- From inside Docker, services on your own machine are at `http://host.docker.internal:PORT`.
+- Siddhi listens on port 8006; each PAIS has its own port (DCR engine: 8090).
+- From inside Docker, services on your own machine are reached at `http://host.docker.internal:PORT`.
+- Cases and CEP state are kept in memory, so restarting a component clears them.
+- Find an OpenAlex author ID: https://api.openalex.org/authors?search=NAME
