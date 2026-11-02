@@ -1,0 +1,14 @@
+{
+  "name": "tenure-dcr-pais",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "postinstall": "[ -d vendor/dcr-js ] || (git clone -q https://github.com/hugoalopez-dtu/dcr-js vendor/dcr-js && git -C vendor/dcr-js checkout -q aa7ac3ec95ea2f362947f624b12a701a580da72b)",
+    "start": "tsx server.mts"
+  },
+  "dependencies": {
+    "moddle": "^8.2.1",
+    "moddle-xml": "^12.3.1",
+    "tsx": "^4.23.15"
+  }
+}
