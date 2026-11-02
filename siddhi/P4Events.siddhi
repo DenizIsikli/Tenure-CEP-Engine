@@ -1,13 +1,40 @@
 @App:name('P4Events')
-@App:description('P4 Career advancement: research output from OpenAlex')
+@App:description('P4 Career advancement: OpenAlex -> Siddhi -> DCR PAIS -> Siddhi')
 
-@source(type='http', receiver.url='http://0.0.0.0:8006/publications',
-        @map(type='json'))
+-- Input 1: new publications from the OpenAlex poller
+@source(type='http', receiver.url='http://0.0.0.0:8006/publications', @map(type='json'))
 define stream PublicationStream (authorId string, workId string, publicationDate string);
 
+-- Input 2: executed events from the DCR PAIS
+@source(type='http', receiver.url='http://0.0.0.0:8006/dcr-events', @map(type='json'))
+define stream ProcessEventStream (caseId string, authorId string, activity string, label string);
+
+-- Output 1: to the DCR PAIS, executes "Update research output"
+@sink(type='http', publisher.url='http://host.docker.internal:8090/research-output', method='POST', @map(type='json'))
 @sink(type='log', prefix='ResearchOutputUpdated')
 define stream ResearchOutputUpdated (authorId string, workId string);
 
+-- Output 2: alerts
+@sink(type='log', prefix='ALERT')
+define stream Alerts (caseId string, authorId string, publications long);
+
+@primaryKey('authorId')
+define table PublicationCount (authorId string, publications long);
+
+-- Rule 1 (CEP -> PAIS): forward each new publication to the PAIS and count it
 from PublicationStream
 select authorId, workId
 insert into ResearchOutputUpdated;
+
+from PublicationStream
+select authorId, count() as publications
+group by authorId
+update or insert into PublicationCount
+  on PublicationCount.authorId == authorId;
+
+-- Rule 2 (PAIS -> CEP): assessment requested with fewer than 3 publications
+from ProcessEventStream[activity == 'req' or activity == 'early'] as r
+  left outer join PublicationCount as p on r.authorId == p.authorId
+select r.caseId, r.authorId, ifThenElse(p.publications is null, 0L, p.publications) as publications
+having publications < 3
+insert into Alerts;
