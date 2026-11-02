@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 .venv/
 src/**/state/
+pais/dcr/node_modules/
+pais/dcr/vendor/
