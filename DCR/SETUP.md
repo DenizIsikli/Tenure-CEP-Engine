@@ -1,4 +1,4 @@
-# Setup
+# Setup: P4 Career advancement (DCR)
 
 The system consists of three programs that run at the same time:
 
@@ -73,7 +73,7 @@ Install Docker Desktop, Node.js LTS and Python 3 as above; Git and curl are incl
 ```bash
 git clone git@github.com:DenizIsikli/Tenure-CEP-Engine.git
 cd Tenure-CEP-Engine/DCR
-cd pais && npm install && cd ../..   # also downloads processdoctor's DCR engine into vendor/
+cd pais && npm install && cd ..   # also downloads processdoctor's DCR engine into vendor/
 ```
 
 ### 3. Start Siddhi (terminal 1)
@@ -154,7 +154,7 @@ checker at https://processdoctor.compute.dtu.dk/.
 | Problem                                     | Fix                                                                      |
 | ------------------------------------------- | ------------------------------------------------------------------------ |
 | `permission denied ... docker.sock` (Linux) | Log out and in, or run `newgrp docker`                                   |
-| `tsx: not found` when starting the PAIS     | Run `npm install` in `pais` first                                    |
+| `tsx: not found` when starting the PAIS     | Run `npm install` in `pais` first                                        |
 | `Siddhi not reachable` in the PAIS          | Siddhi is not running yet; start it first                                |
 | `Dropping event at Sink 'http'` in Siddhi   | The PAIS is not running on port 8090; start it                           |
 | No `ResearchOutputUpdated` in Siddhi        | Check that the poller prints `sent ...`; delete the state file to resend |

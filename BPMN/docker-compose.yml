@@ -34,7 +34,13 @@ services:
     volumes:
       - ./future_department/data:/data
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5002/health', timeout=2)"]
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:5002/health', timeout=2)",
+        ]
       interval: 5s
       timeout: 3s
       retries: 12
@@ -42,7 +48,7 @@ services:
     restart: unless-stopped
 
   siddhi:
-    platform: linux/amd64  # Siddhi image is AMD64; use Docker emulation on ARM Macs.
+    platform: linux/amd64 # Siddhi image is AMD64; use Docker emulation on ARM Macs.
     build: ./siddhi
     container_name: siddhi-runtime
     ports:
@@ -89,7 +95,11 @@ services:
     ports:
       - "9200:9200"
     healthcheck:
-      test: ["CMD-SHELL", "curl -fsS http://localhost:9200/_cluster/health > /dev/null || exit 1"]
+      test:
+        [
+          "CMD-SHELL",
+          "curl -fsS http://localhost:9200/_cluster/health > /dev/null || exit 1",
+        ]
       interval: 10s
       timeout: 5s
       retries: 12
@@ -114,6 +124,20 @@ services:
       CAMUNDA_SECURITY_AUTHENTICATION_UNPROTECTEDAPI: "true"
       CAMUNDA_SECURITY_AUTHORIZATIONS_ENABLED: "false"
     restart: unless-stopped
+
+  event-stream: # sends the sample transfer requests once the system is up
+    image: python:3.12-alpine
+    working_dir: /app
+    volumes: ["./event_streams:/app:ro"]
+    environment:
+      SIDDHI_URL: http://siddhi:7071/customer
+    entrypoint: ["sh", "-c"]
+    command:
+      - until wget -qO- http://communication:5001/health >/dev/null 2>&1; do sleep 2; done;
+        sleep 5; python -u send_stream.py test_events.jsonl
+    depends_on:
+      communication: { condition: service_started }
+      siddhi: { condition: service_started }
 
 volumes:
   professor-transfer-data:
