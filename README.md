@@ -1,50 +1,31 @@
 # Tenure-CEP-Engine
 
 Group 15, DTU 02268 POEDSS final project: Talent Management Processes at DTU.
-Event sources feed a CEP engine (Siddhi), which communicates in both directions with
-process-aware information systems (PAIS).
+Each implemented process is a self-contained project in its own folder, in which event sources
+feed a CEP engine (Siddhi) that communicates in both directions with a process-aware information
+system (PAIS).
 
-## Architecture
+| Folder           | Process                              | PAIS                               | Event source                  | CEP    |
+| ---------------- | ------------------------------------ | ---------------------------------- | ----------------------------- | ------ |
+| [`DCR/`](DCR/)   | P4 Career advancement (tenure track) | DCR engine, processdoctor's dcr-js | Research output from OpenAlex | Siddhi |
+| [`BPMN/`](BPMN/) | P5 Switching departments or roles    | Camunda 8 (Zeebe, Operate)         | Simulated transfer requests   | Siddhi |
 
+## Quick start
+
+Only Docker with Docker Compose is needed (Linux, Windows or Mac). Each process starts with one
+command from its own folder:
+
+```bash
+cd DCR  && docker compose up --build     # P4, details in DCR/SETUP.md
+cd BPMN && docker compose up --build     # P5, details in BPMN/README.md
 ```
-event sources ──► Siddhi (CEP) ◄──► PAIS
-```
 
-| Component     | Technology           | Description                                                          |
-| ------------- | -------------------- | -------------------------------------------------------------------- |
-| Event sources | Python               | Send events to Siddhi over HTTP                                      |
-| CEP           | Siddhi (Docker)      | Filters, counts and correlates events, and forwards them to the PAIS |
-| PAIS          | DCR engine / Camunda | Execute the process models and report executed events back to Siddhi |
+The two projects use different ports and can run at the same time.
 
 ## Structure
 
 ```
-siddhi/             Siddhi apps (.siddhi), one per process
-src/                event sources, each with its own Dockerfile
-pais/               one folder per PAIS, each with its process model, connector and Dockerfile
-demo/               script that plays the users of the PAIS for a demo case
-docker-compose.yml  runs everything with one command
+DCR/    P4: Siddhi app, OpenAlex poller, DCR PAIS, demo script, docker-compose.yml, SETUP.md
+BPMN/   P5: BPMN model, Camunda workers, Future Department service, Siddhi app,
+        logging service, event streams, tests, docker-compose.yml, README.md
 ```
-
-## Processes
-
-| Process                              | Event source                               | PAIS                                             | Model                                     |
-| ------------------------------------ | ------------------------------------------ | ------------------------------------------------ | ----------------------------------------- |
-| P4 Career advancement (tenure track) | OpenAlex research output (`src/openalex/`) | DCR engine, processdoctor's dcr-js (`pais/dcr/`) | `pais/dcr/p4_career_advancement_tobe.xml` |
-
-## Quick start
-
-With Docker installed (Linux, Windows or Mac):
-
-```bash
-docker compose up --build
-```
-
-See [SETUP.md](SETUP.md) for details and for running the components manually.
-
-## Notes
-
-- Siddhi listens on port 8006; each PAIS has its own port (DCR engine: 8090).
-- From inside Docker, services on your own machine are reached at `http://host.docker.internal:PORT`.
-- Cases and CEP state are kept in memory, so restarting a component clears them.
-- Find an OpenAlex author ID: https://api.openalex.org/authors?search=NAME
