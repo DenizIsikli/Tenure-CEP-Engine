@@ -1,0 +1,53 @@
+[
+  {
+    "case_id": "T-DOMAIN-TEST",
+    "transfer_id": "T-DOMAIN-TEST",
+    "event": "DeanFundingAndFinalDecision",
+    "timestamp": "2026-11-23T19:32:04.369172+00:00",
+    "role": "dean",
+    "error": "",
+    "payload": {
+      "deanAcademicFit": false,
+      "deanFundingApproved": true,
+      "futureDepartmentSuitable": false,
+      "approved": false,
+      "decisionReason": "The Future Department did not consider the professor suitable for its research domain. The Current Department's research threshold or the Dean's academic review was not passed.",
+      "fundingShortfall": 10000.0,
+      "currentDepartmentContributionProposed": 10000.0,
+      "totalFundingAvailable": 10000.0,
+      "salaryCurrency": "EUR",
+      "salaryPeriod": "year"
+    }
+  },
+  {
+    "case_id": "T-DOMAIN-TEST",
+    "transfer_id": "T-DOMAIN-TEST",
+    "event": "TransferDecision",
+    "timestamp": "2026-11-23T19:32:04.389982+00:00",
+    "role": "future-department",
+    "error": "",
+    "payload": {
+      "approved": false,
+      "deanAcademicFit": false,
+      "deanFundingApproved": true,
+      "totalFundingAvailable": 10000.0,
+      "decisionReason": "The Future Department did not consider the professor suitable for its research domain. The Current Department's research threshold or the Dean's academic review was not passed.",
+      "transferId": "T-DOMAIN-TEST"
+    }
+  },
+  {
+    "case_id": "T-DOMAIN-TEST",
+    "transfer_id": "T-DOMAIN-TEST",
+    "event": "DeanTransferRejected",
+    "timestamp": "2026-11-23T19:32:04.416699+00:00",
+    "role": "dean",
+    "error": "",
+    "payload": {
+      "approved": false,
+      "deanAcademicFit": false,
+      "deanFundingApproved": true,
+      "totalFundingAvailable": 10000.0,
+      "decisionReason": "The Future Department did not consider the professor suitable for its research domain. The Current Department's research threshold or the Dean's academic review was not passed."
+    }
+  }
+]

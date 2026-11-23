@@ -1,0 +1,522 @@
+<?xml version='1.0' encoding='utf-8'?>
+<log xes.version="2.0" xes.features="nested-attributes" openxes.version="1.0RC7">
+  <extension name="concept" prefix="concept" uri="http://www.xes-standard.org/concept.xesext" />
+  <extension name="time" prefix="time" uri="http://www.xes-standard.org/time.xesext" />
+  <extension name="org" prefix="org" uri="http://www.xes-standard.org/org.xesext" />
+  <global scope="trace">
+    <string key="concept:name" value="name" />
+  </global>
+  <global scope="event">
+    <string key="concept:name" value="name" />
+    <date key="time:timestamp" value="2024-01-01T00:00:00.000+00:00" />
+    <string key="org:resource" value="resource" />
+  </global>
+  <classifier name="Event Name" keys="concept:name" />
+  <trace>
+    <string key="concept:name" value="T-100-1795466540" />
+    <event>
+      <string key="concept:name" value="FundingAssessed" />
+      <date key="time:timestamp" value="2026-11-23T20:42:21.066190+00:00" />
+      <string key="org:resource" value="current-department" />
+      <string key="transfer_id" value="T-100-1795466540" />
+      <string key="case_id" value="T-100-1795466540" />
+      <string key="payload:futureDepartmentCanCoverSalary" value="False" />
+      <string key="payload:canFundWithoutCurrentDepartment" value="False" />
+      <string key="payload:requiresCurrentDepartmentContribution" value="True" />
+      <string key="payload:fundingShortfall" value="40000.0" />
+      <string key="payload:currentDepartmentContributionRequired" value="40000.0" />
+      <string key="payload:currentDepartmentContributionProposed" value="40000.0" />
+      <string key="payload:currentDepartmentCanCoverShortfall" value="True" />
+      <string key="payload:totalFundingAvailable" value="80000.0" />
+      <string key="payload:fundingArrangementVerified" value="True" />
+      <string key="payload:fundingDecisionReason" value="The Current Department can cover the shortfall; the Dean must review the contribution." />
+      <string key="payload:salaryCurrency" value="EUR" />
+      <string key="payload:salaryPeriod" value="year" />
+    </event>
+    <event>
+      <string key="concept:name" value="DeanReviewedResearchAndDomainFit" />
+      <date key="time:timestamp" value="2026-11-23T20:42:21.099197+00:00" />
+      <string key="org:resource" value="dean" />
+      <string key="transfer_id" value="T-100-1795466540" />
+      <string key="case_id" value="T-100-1795466540" />
+      <string key="payload:deanAcademicFit" value="True" />
+      <string key="payload:deanResearchAssessment" value="Domain and research checks passed." />
+      <string key="payload:futureDepartmentSuitable" value="True" />
+      <string key="payload:futureDepartmentFitReason" value="The professor's domain 'Computational Physics' is supported by Workflow Test Dept." />
+      <string key="payload:researchFitScore" value="8.0" />
+      <string key="payload:researchThreshold" value="5.0" />
+    </event>
+    <event>
+      <string key="concept:name" value="TransferDocumentsForDeanApproval" />
+      <date key="time:timestamp" value="2026-11-23T20:42:21.097673+00:00" />
+      <string key="org:resource" value="future-department" />
+      <string key="transfer_id" value="T-100-1795466540" />
+      <string key="case_id" value="T-100-1795466540" />
+      <string key="payload:transferId" value="T-100-1795466540" />
+      <string key="payload:professorId" value="P-100-1795466540" />
+      <string key="payload:professorName" value="Dr Shared Funding Test" />
+      <string key="payload:professorSalary" value="80000.0" />
+      <string key="payload:salaryCurrency" value="EUR" />
+      <string key="payload:salaryPeriod" value="year" />
+      <string key="payload:currentDepartment" value="Physics" />
+      <string key="payload:currentSection" value="Theory" />
+      <string key="payload:targetDepartment" value="Workflow Test Dept" />
+      <string key="payload:targetSection" value="Computational Physics" />
+      <string key="payload:professorDomain" value="Computational Physics" />
+      <string key="payload:researchDomain" value="Computational Physics" />
+      <string key="payload:researchDescription" value="Research into computational modelling of physical systems." />
+      <string key="payload:researchImportance" value="8.0" />
+      <string key="payload:currentDepartmentAvailableFunding" value="50000.0" />
+      <string key="payload:professorDomainAssessed" value="Computational Physics" />
+      <string key="payload:futureDepartmentSuitable" value="True" />
+      <string key="payload:futureDepartmentFitReason" value="The professor's domain 'Computational Physics' is supported by Workflow Test Dept." />
+      <string key="payload:supportedResearchDomains" value="['Computational Physics']" />
+      <string key="payload:futureDepartmentFunding" value="40000.0" />
+      <string key="payload:futureDepartmentAvailableFundingAtAssessment" value="40000.0" />
+      <string key="payload:futureDepartmentCanCoverSalary" value="False" />
+      <string key="payload:fundingShortfall" value="40000.0" />
+      <string key="payload:fundingCurrencyCompatible" value="True" />
+      <string key="payload:futureDepartmentContributionStatus" value="PROPOSED" />
+      <string key="payload:researchFitScore" value="8.0" />
+      <string key="payload:researchThreshold" value="5.0" />
+      <string key="payload:academicJustificationApproved" value="True" />
+      <string key="payload:academicDecisionReason" value="Research importance meets the required threshold." />
+      <string key="payload:canFundWithoutCurrentDepartment" value="False" />
+      <string key="payload:requiresCurrentDepartmentContribution" value="True" />
+      <string key="payload:currentDepartmentContributionRequired" value="40000.0" />
+      <string key="payload:currentDepartmentContributionProposed" value="40000.0" />
+      <string key="payload:currentDepartmentCanCoverShortfall" value="True" />
+      <string key="payload:totalFundingAvailable" value="80000.0" />
+      <string key="payload:fundingArrangementVerified" value="True" />
+      <string key="payload:fundingDecisionReason" value="The Current Department can cover the shortfall; the Dean must review the contribution." />
+    </event>
+    <event>
+      <string key="concept:name" value="DeanFundingAndFinalDecision" />
+      <date key="time:timestamp" value="2026-11-23T20:42:21.140826+00:00" />
+      <string key="org:resource" value="dean" />
+      <string key="transfer_id" value="T-100-1795466540" />
+      <string key="case_id" value="T-100-1795466540" />
+      <string key="payload:deanAcademicFit" value="True" />
+      <string key="payload:deanFundingApproved" value="True" />
+      <string key="payload:futureDepartmentSuitable" value="True" />
+      <string key="payload:approved" value="True" />
+      <string key="payload:decisionReason" value="Domain fit, research assessment and funding checks passed; the transfer is approved." />
+      <string key="payload:fundingShortfall" value="40000.0" />
+      <string key="payload:currentDepartmentContributionProposed" value="40000.0" />
+      <string key="payload:totalFundingAvailable" value="80000.0" />
+      <string key="payload:salaryCurrency" value="EUR" />
+      <string key="payload:salaryPeriod" value="year" />
+    </event>
+    <event>
+      <string key="concept:name" value="TransferDecision" />
+      <date key="time:timestamp" value="2026-11-23T20:42:21.175819+00:00" />
+      <string key="org:resource" value="future-department" />
+      <string key="transfer_id" value="T-100-1795466540" />
+      <string key="case_id" value="T-100-1795466540" />
+      <string key="payload:approved" value="True" />
+      <string key="payload:deanAcademicFit" value="True" />
+      <string key="payload:deanFundingApproved" value="True" />
+      <string key="payload:totalFundingAvailable" value="80000.0" />
+      <string key="payload:decisionReason" value="Domain fit, research assessment and funding checks passed; the transfer is approved." />
+      <string key="payload:transferId" value="T-100-1795466540" />
+      <string key="payload:futureDepartmentContributionStatus" value="COMMITTED" />
+    </event>
+    <event>
+      <string key="concept:name" value="ProfessorDepartmentUpdated" />
+      <date key="time:timestamp" value="2026-11-23T20:42:21.178539+00:00" />
+      <string key="org:resource" value="professor" />
+      <string key="transfer_id" value="T-100-1795466540" />
+      <string key="case_id" value="T-100-1795466540" />
+      <string key="payload:professorId" value="P-100-1795466540" />
+      <string key="payload:targetDepartment" value="Workflow Test Dept" />
+    </event>
+  </trace>
+  <trace>
+    <string key="concept:name" value="T-101-1795466540" />
+    <event>
+      <string key="concept:name" value="TransferProposalDocuments" />
+      <date key="time:timestamp" value="2026-11-23T20:42:21.541727+00:00" />
+      <string key="org:resource" value="future-department" />
+      <string key="transfer_id" value="T-101-1795466540" />
+      <string key="case_id" value="T-101-1795466540" />
+      <string key="payload:transferId" value="T-101-1795466540" />
+      <string key="payload:professorId" value="P-101-1795466540" />
+      <string key="payload:professorName" value="Dr Funding Shortfall Test" />
+      <string key="payload:professorSalary" value="150000.0" />
+      <string key="payload:salaryCurrency" value="EUR" />
+      <string key="payload:salaryPeriod" value="year" />
+      <string key="payload:currentDepartment" value="Physics" />
+      <string key="payload:currentSection" value="Theory" />
+      <string key="payload:targetDepartment" value="Workflow Test Dept" />
+      <string key="payload:targetSection" value="Computational Physics" />
+      <string key="payload:professorDomain" value="Computational Physics" />
+      <string key="payload:researchDomain" value="Computational Physics" />
+      <string key="payload:researchDescription" value="Research into computational modelling of physical systems." />
+      <string key="payload:researchImportance" value="8.0" />
+      <string key="payload:currentDepartmentAvailableFunding" value="50000.0" />
+      <string key="payload:professorDomainAssessed" value="Computational Physics" />
+      <string key="payload:futureDepartmentSuitable" value="True" />
+      <string key="payload:futureDepartmentFitReason" value="The professor's domain 'Computational Physics' is supported by Workflow Test Dept." />
+      <string key="payload:supportedResearchDomains" value="['Computational Physics']" />
+      <string key="payload:futureDepartmentFunding" value="0.0" />
+      <string key="payload:futureDepartmentAvailableFundingAtAssessment" value="0.0" />
+      <string key="payload:futureDepartmentCanCoverSalary" value="False" />
+      <string key="payload:fundingShortfall" value="150000.0" />
+      <string key="payload:fundingCurrencyCompatible" value="True" />
+      <string key="payload:futureDepartmentContributionStatus" value="NONE" />
+    </event>
+    <event>
+      <string key="concept:name" value="ResearchAssessed" />
+      <date key="time:timestamp" value="2026-11-23T20:42:21.543046+00:00" />
+      <string key="org:resource" value="current-department" />
+      <string key="transfer_id" value="T-101-1795466540" />
+      <string key="case_id" value="T-101-1795466540" />
+      <string key="payload:researchFitScore" value="8.0" />
+      <string key="payload:researchThreshold" value="5.0" />
+      <string key="payload:academicJustificationApproved" value="True" />
+      <string key="payload:academicDecisionReason" value="Research importance meets the required threshold." />
+    </event>
+    <event>
+      <string key="concept:name" value="FundingAssessed" />
+      <date key="time:timestamp" value="2026-11-23T20:42:21.614207+00:00" />
+      <string key="org:resource" value="current-department" />
+      <string key="transfer_id" value="T-101-1795466540" />
+      <string key="case_id" value="T-101-1795466540" />
+      <string key="payload:futureDepartmentCanCoverSalary" value="False" />
+      <string key="payload:canFundWithoutCurrentDepartment" value="False" />
+      <string key="payload:requiresCurrentDepartmentContribution" value="True" />
+      <string key="payload:fundingShortfall" value="150000.0" />
+      <string key="payload:currentDepartmentContributionRequired" value="150000.0" />
+      <string key="payload:currentDepartmentContributionProposed" value="50000.0" />
+      <string key="payload:currentDepartmentCanCoverShortfall" value="False" />
+      <string key="payload:totalFundingAvailable" value="50000.0" />
+      <string key="payload:fundingArrangementVerified" value="False" />
+      <string key="payload:fundingDecisionReason" value="Combined available funding is insufficient to cover the salary." />
+      <string key="payload:salaryCurrency" value="EUR" />
+      <string key="payload:salaryPeriod" value="year" />
+    </event>
+    <event>
+      <string key="concept:name" value="TransferDocumentsForDeanApproval" />
+      <date key="time:timestamp" value="2026-11-23T20:42:21.653842+00:00" />
+      <string key="org:resource" value="future-department" />
+      <string key="transfer_id" value="T-101-1795466540" />
+      <string key="case_id" value="T-101-1795466540" />
+      <string key="payload:transferId" value="T-101-1795466540" />
+      <string key="payload:professorId" value="P-101-1795466540" />
+      <string key="payload:professorName" value="Dr Funding Shortfall Test" />
+      <string key="payload:professorSalary" value="150000.0" />
+      <string key="payload:salaryCurrency" value="EUR" />
+      <string key="payload:salaryPeriod" value="year" />
+      <string key="payload:currentDepartment" value="Physics" />
+      <string key="payload:currentSection" value="Theory" />
+      <string key="payload:targetDepartment" value="Workflow Test Dept" />
+      <string key="payload:targetSection" value="Computational Physics" />
+      <string key="payload:professorDomain" value="Computational Physics" />
+      <string key="payload:researchDomain" value="Computational Physics" />
+      <string key="payload:researchDescription" value="Research into computational modelling of physical systems." />
+      <string key="payload:researchImportance" value="8.0" />
+      <string key="payload:currentDepartmentAvailableFunding" value="50000.0" />
+      <string key="payload:professorDomainAssessed" value="Computational Physics" />
+      <string key="payload:futureDepartmentSuitable" value="True" />
+      <string key="payload:futureDepartmentFitReason" value="The professor's domain 'Computational Physics' is supported by Workflow Test Dept." />
+      <string key="payload:supportedResearchDomains" value="['Computational Physics']" />
+      <string key="payload:futureDepartmentFunding" value="0.0" />
+      <string key="payload:futureDepartmentAvailableFundingAtAssessment" value="0.0" />
+      <string key="payload:futureDepartmentCanCoverSalary" value="False" />
+      <string key="payload:fundingShortfall" value="150000.0" />
+      <string key="payload:fundingCurrencyCompatible" value="True" />
+      <string key="payload:futureDepartmentContributionStatus" value="NONE" />
+      <string key="payload:researchFitScore" value="8.0" />
+      <string key="payload:researchThreshold" value="5.0" />
+      <string key="payload:academicJustificationApproved" value="True" />
+      <string key="payload:academicDecisionReason" value="Research importance meets the required threshold." />
+      <string key="payload:canFundWithoutCurrentDepartment" value="False" />
+      <string key="payload:requiresCurrentDepartmentContribution" value="True" />
+      <string key="payload:currentDepartmentContributionRequired" value="150000.0" />
+      <string key="payload:currentDepartmentContributionProposed" value="50000.0" />
+      <string key="payload:currentDepartmentCanCoverShortfall" value="False" />
+      <string key="payload:totalFundingAvailable" value="50000.0" />
+      <string key="payload:fundingArrangementVerified" value="False" />
+      <string key="payload:fundingDecisionReason" value="Combined available funding is insufficient to cover the salary." />
+    </event>
+    <event>
+      <string key="concept:name" value="DeanReviewedResearchAndDomainFit" />
+      <date key="time:timestamp" value="2026-11-23T20:42:21.655009+00:00" />
+      <string key="org:resource" value="dean" />
+      <string key="transfer_id" value="T-101-1795466540" />
+      <string key="case_id" value="T-101-1795466540" />
+      <string key="payload:deanAcademicFit" value="True" />
+      <string key="payload:deanResearchAssessment" value="Domain and research checks passed." />
+      <string key="payload:futureDepartmentSuitable" value="True" />
+      <string key="payload:futureDepartmentFitReason" value="The professor's domain 'Computational Physics' is supported by Workflow Test Dept." />
+      <string key="payload:researchFitScore" value="8.0" />
+      <string key="payload:researchThreshold" value="5.0" />
+    </event>
+    <event>
+      <string key="concept:name" value="DepartmentTransferResponse" />
+      <date key="time:timestamp" value="2026-11-23T20:42:21.680559+00:00" />
+      <string key="org:resource" value="current-department" />
+      <string key="transfer_id" value="T-101-1795466540" />
+      <string key="case_id" value="T-101-1795466540" />
+      <string key="payload:professorId" value="P-101-1795466540" />
+      <string key="payload:professorName" value="Dr Funding Shortfall Test" />
+      <string key="payload:professorSalary" value="150000.0" />
+      <string key="payload:salaryCurrency" value="EUR" />
+      <string key="payload:salaryPeriod" value="year" />
+      <string key="payload:currentDepartment" value="Physics" />
+      <string key="payload:targetDepartment" value="Workflow Test Dept" />
+      <string key="payload:professorDomain" value="Computational Physics" />
+      <string key="payload:researchDomain" value="Computational Physics" />
+      <string key="payload:researchDescription" value="Research into computational modelling of physical systems." />
+      <string key="payload:researchImportance" value="8.0" />
+      <string key="payload:futureDepartmentSuitable" value="True" />
+      <string key="payload:futureDepartmentFitReason" value="The professor's domain 'Computational Physics' is supported by Workflow Test Dept." />
+      <string key="payload:futureDepartmentFunding" value="0.0" />
+      <string key="payload:fundingShortfall" value="150000.0" />
+      <string key="payload:researchFitScore" value="8.0" />
+      <string key="payload:researchThreshold" value="5.0" />
+      <string key="payload:academicJustificationApproved" value="True" />
+      <string key="payload:academicDecisionReason" value="Research importance meets the required threshold." />
+      <string key="payload:futureDepartmentCanCoverSalary" value="False" />
+      <string key="payload:canFundWithoutCurrentDepartment" value="False" />
+      <string key="payload:requiresCurrentDepartmentContribution" value="True" />
+      <string key="payload:currentDepartmentContributionRequired" value="150000.0" />
+      <string key="payload:currentDepartmentContributionProposed" value="50000.0" />
+      <string key="payload:currentDepartmentCanCoverShortfall" value="False" />
+      <string key="payload:totalFundingAvailable" value="50000.0" />
+      <string key="payload:fundingArrangementVerified" value="False" />
+      <string key="payload:fundingDecisionReason" value="Combined available funding is insufficient to cover the salary." />
+      <string key="payload:transferId" value="T-101-1795466540" />
+    </event>
+    <event>
+      <string key="concept:name" value="TransferDecision" />
+      <date key="time:timestamp" value="2026-11-23T20:42:21.826662+00:00" />
+      <string key="org:resource" value="future-department" />
+      <string key="transfer_id" value="T-101-1795466540" />
+      <string key="case_id" value="T-101-1795466540" />
+      <string key="payload:approved" value="False" />
+      <string key="payload:deanAcademicFit" value="True" />
+      <string key="payload:deanFundingApproved" value="False" />
+      <string key="payload:totalFundingAvailable" value="50000.0" />
+      <string key="payload:decisionReason" value="Combined proposed funding is insufficient or the Dean did not approve the funding proposal." />
+      <string key="payload:transferId" value="T-101-1795466540" />
+    </event>
+    <event>
+      <string key="concept:name" value="DeanTransferRejected" />
+      <date key="time:timestamp" value="2026-11-23T20:42:21.833308+00:00" />
+      <string key="org:resource" value="dean" />
+      <string key="transfer_id" value="T-101-1795466540" />
+      <string key="case_id" value="T-101-1795466540" />
+      <string key="payload:approved" value="False" />
+      <string key="payload:deanAcademicFit" value="True" />
+      <string key="payload:deanFundingApproved" value="False" />
+      <string key="payload:totalFundingAvailable" value="50000.0" />
+      <string key="payload:decisionReason" value="Combined proposed funding is insufficient or the Dean did not approve the funding proposal." />
+    </event>
+  </trace>
+  <trace>
+    <string key="concept:name" value="T-102-1795466540" />
+    <event>
+      <string key="concept:name" value="ResearchAssessed" />
+      <date key="time:timestamp" value="2026-11-23T20:42:22.082138+00:00" />
+      <string key="org:resource" value="current-department" />
+      <string key="transfer_id" value="T-102-1795466540" />
+      <string key="case_id" value="T-102-1795466540" />
+      <string key="payload:researchFitScore" value="8.0" />
+      <string key="payload:researchThreshold" value="5.0" />
+      <string key="payload:academicJustificationApproved" value="True" />
+      <string key="payload:academicDecisionReason" value="Research importance meets the required threshold." />
+    </event>
+    <event>
+      <string key="concept:name" value="TransferProposalDocuments" />
+      <date key="time:timestamp" value="2026-11-23T20:42:22.080931+00:00" />
+      <string key="org:resource" value="future-department" />
+      <string key="transfer_id" value="T-102-1795466540" />
+      <string key="case_id" value="T-102-1795466540" />
+      <string key="payload:transferId" value="T-102-1795466540" />
+      <string key="payload:professorId" value="P-102-1795466540" />
+      <string key="payload:professorName" value="Dr Domain Mismatch Test" />
+      <string key="payload:professorSalary" value="10000.0" />
+      <string key="payload:salaryCurrency" value="EUR" />
+      <string key="payload:salaryPeriod" value="year" />
+      <string key="payload:currentDepartment" value="Physics" />
+      <string key="payload:currentSection" value="Theory" />
+      <string key="payload:targetDepartment" value="Workflow Test Dept" />
+      <string key="payload:targetSection" value="Computational Physics" />
+      <string key="payload:professorDomain" value="Marine Biology" />
+      <string key="payload:researchDomain" value="Marine Biology" />
+      <string key="payload:researchDescription" value="Research into marine ecosystems and ocean biology." />
+      <string key="payload:researchImportance" value="8.0" />
+      <string key="payload:currentDepartmentAvailableFunding" value="10000.0" />
+      <string key="payload:professorDomainAssessed" value="Marine Biology" />
+      <string key="payload:futureDepartmentSuitable" value="False" />
+      <string key="payload:futureDepartmentFitReason" value="The professor's domain 'Marine Biology' is not listed among the domains supported by Workflow Test Dept." />
+      <string key="payload:supportedResearchDomains" value="['Computational Physics']" />
+      <string key="payload:futureDepartmentFunding" value="0.0" />
+      <string key="payload:futureDepartmentAvailableFundingAtAssessment" value="0.0" />
+      <string key="payload:futureDepartmentCanCoverSalary" value="False" />
+      <string key="payload:fundingShortfall" value="10000.0" />
+      <string key="payload:fundingCurrencyCompatible" value="True" />
+      <string key="payload:futureDepartmentContributionStatus" value="NONE" />
+    </event>
+    <event>
+      <string key="concept:name" value="TransferDocumentsForDeanApproval" />
+      <date key="time:timestamp" value="2026-11-23T20:42:22.131998+00:00" />
+      <string key="org:resource" value="future-department" />
+      <string key="transfer_id" value="T-102-1795466540" />
+      <string key="case_id" value="T-102-1795466540" />
+      <string key="payload:transferId" value="T-102-1795466540" />
+      <string key="payload:professorId" value="P-102-1795466540" />
+      <string key="payload:professorName" value="Dr Domain Mismatch Test" />
+      <string key="payload:professorSalary" value="10000.0" />
+      <string key="payload:salaryCurrency" value="EUR" />
+      <string key="payload:salaryPeriod" value="year" />
+      <string key="payload:currentDepartment" value="Physics" />
+      <string key="payload:currentSection" value="Theory" />
+      <string key="payload:targetDepartment" value="Workflow Test Dept" />
+      <string key="payload:targetSection" value="Computational Physics" />
+      <string key="payload:professorDomain" value="Marine Biology" />
+      <string key="payload:researchDomain" value="Marine Biology" />
+      <string key="payload:researchDescription" value="Research into marine ecosystems and ocean biology." />
+      <string key="payload:researchImportance" value="8.0" />
+      <string key="payload:currentDepartmentAvailableFunding" value="10000.0" />
+      <string key="payload:professorDomainAssessed" value="Marine Biology" />
+      <string key="payload:futureDepartmentSuitable" value="False" />
+      <string key="payload:futureDepartmentFitReason" value="The professor's domain 'Marine Biology' is not listed among the domains supported by Workflow Test Dept." />
+      <string key="payload:supportedResearchDomains" value="['Computational Physics']" />
+      <string key="payload:futureDepartmentFunding" value="0.0" />
+      <string key="payload:futureDepartmentAvailableFundingAtAssessment" value="0.0" />
+      <string key="payload:futureDepartmentCanCoverSalary" value="False" />
+      <string key="payload:fundingShortfall" value="10000.0" />
+      <string key="payload:fundingCurrencyCompatible" value="True" />
+      <string key="payload:futureDepartmentContributionStatus" value="NONE" />
+      <string key="payload:researchFitScore" value="8.0" />
+      <string key="payload:researchThreshold" value="5.0" />
+      <string key="payload:academicJustificationApproved" value="True" />
+      <string key="payload:academicDecisionReason" value="Research importance meets the required threshold." />
+      <string key="payload:canFundWithoutCurrentDepartment" value="False" />
+      <string key="payload:requiresCurrentDepartmentContribution" value="True" />
+      <string key="payload:currentDepartmentContributionRequired" value="10000.0" />
+      <string key="payload:currentDepartmentContributionProposed" value="10000.0" />
+      <string key="payload:currentDepartmentCanCoverShortfall" value="True" />
+      <string key="payload:totalFundingAvailable" value="10000.0" />
+      <string key="payload:fundingArrangementVerified" value="True" />
+      <string key="payload:fundingDecisionReason" value="The Current Department can cover the shortfall; the Dean must review the contribution." />
+    </event>
+    <event>
+      <string key="concept:name" value="DeanReviewedResearchAndDomainFit" />
+      <date key="time:timestamp" value="2026-11-23T20:42:22.132997+00:00" />
+      <string key="org:resource" value="dean" />
+      <string key="transfer_id" value="T-102-1795466540" />
+      <string key="case_id" value="T-102-1795466540" />
+      <string key="payload:deanAcademicFit" value="False" />
+      <string key="payload:deanResearchAssessment" value="One or more domain/research criteria did not pass; final funding review will still run." />
+      <string key="payload:futureDepartmentSuitable" value="False" />
+      <string key="payload:futureDepartmentFitReason" value="The professor's domain 'Marine Biology' is not listed among the domains supported by Workflow Test Dept." />
+      <string key="payload:researchFitScore" value="8.0" />
+      <string key="payload:researchThreshold" value="5.0" />
+    </event>
+    <event>
+      <string key="concept:name" value="DepartmentTransferResponse" />
+      <date key="time:timestamp" value="2026-11-23T20:42:22.142198+00:00" />
+      <string key="org:resource" value="current-department" />
+      <string key="transfer_id" value="T-102-1795466540" />
+      <string key="case_id" value="T-102-1795466540" />
+      <string key="payload:professorId" value="P-102-1795466540" />
+      <string key="payload:professorName" value="Dr Domain Mismatch Test" />
+      <string key="payload:professorSalary" value="10000.0" />
+      <string key="payload:salaryCurrency" value="EUR" />
+      <string key="payload:salaryPeriod" value="year" />
+      <string key="payload:currentDepartment" value="Physics" />
+      <string key="payload:targetDepartment" value="Workflow Test Dept" />
+      <string key="payload:professorDomain" value="Marine Biology" />
+      <string key="payload:researchDomain" value="Marine Biology" />
+      <string key="payload:researchDescription" value="Research into marine ecosystems and ocean biology." />
+      <string key="payload:researchImportance" value="8.0" />
+      <string key="payload:futureDepartmentSuitable" value="False" />
+      <string key="payload:futureDepartmentFitReason" value="The professor's domain 'Marine Biology' is not listed among the domains supported by Workflow Test Dept." />
+      <string key="payload:futureDepartmentFunding" value="0.0" />
+      <string key="payload:fundingShortfall" value="10000.0" />
+      <string key="payload:researchFitScore" value="8.0" />
+      <string key="payload:researchThreshold" value="5.0" />
+      <string key="payload:academicJustificationApproved" value="True" />
+      <string key="payload:academicDecisionReason" value="Research importance meets the required threshold." />
+      <string key="payload:futureDepartmentCanCoverSalary" value="False" />
+      <string key="payload:canFundWithoutCurrentDepartment" value="False" />
+      <string key="payload:requiresCurrentDepartmentContribution" value="True" />
+      <string key="payload:currentDepartmentContributionRequired" value="10000.0" />
+      <string key="payload:currentDepartmentContributionProposed" value="10000.0" />
+      <string key="payload:currentDepartmentCanCoverShortfall" value="True" />
+      <string key="payload:totalFundingAvailable" value="10000.0" />
+      <string key="payload:fundingArrangementVerified" value="True" />
+      <string key="payload:fundingDecisionReason" value="The Current Department can cover the shortfall; the Dean must review the contribution." />
+      <string key="payload:transferId" value="T-102-1795466540" />
+    </event>
+    <event>
+      <string key="concept:name" value="TransferDecision" />
+      <date key="time:timestamp" value="2026-11-23T20:42:22.164976+00:00" />
+      <string key="org:resource" value="future-department" />
+      <string key="transfer_id" value="T-102-1795466540" />
+      <string key="case_id" value="T-102-1795466540" />
+      <string key="payload:approved" value="False" />
+      <string key="payload:deanAcademicFit" value="False" />
+      <string key="payload:deanFundingApproved" value="True" />
+      <string key="payload:totalFundingAvailable" value="10000.0" />
+      <string key="payload:decisionReason" value="The Future Department did not consider the professor suitable for its research domain. The Current Department's research threshold or the Dean's academic review was not passed." />
+      <string key="payload:transferId" value="T-102-1795466540" />
+    </event>
+    <event>
+      <string key="concept:name" value="DeanTransferRejected" />
+      <date key="time:timestamp" value="2026-11-23T20:42:22.173387+00:00" />
+      <string key="org:resource" value="dean" />
+      <string key="transfer_id" value="T-102-1795466540" />
+      <string key="case_id" value="T-102-1795466540" />
+      <string key="payload:approved" value="False" />
+      <string key="payload:deanAcademicFit" value="False" />
+      <string key="payload:deanFundingApproved" value="True" />
+      <string key="payload:totalFundingAvailable" value="10000.0" />
+      <string key="payload:decisionReason" value="The Future Department did not consider the professor suitable for its research domain. The Current Department's research threshold or the Dean's academic review was not passed." />
+    </event>
+  </trace>
+  <trace>
+    <string key="concept:name" value="T-103-1795466540" />
+    <event>
+      <string key="concept:name" value="SectionTransferRequest" />
+      <date key="time:timestamp" value="2026-11-23T20:42:22.602791+00:00" />
+      <string key="org:resource" value="professor" />
+      <string key="transfer_id" value="T-103-1795466540" />
+      <string key="case_id" value="T-103-1795466540" />
+      <string key="payload:transferId" value="T-103-1795466540" />
+      <string key="payload:professorId" value="P-103-1795466540" />
+      <string key="payload:professorName" value="Dr Internal Section Change Test" />
+      <string key="payload:currentDepartment" value="Physics" />
+      <string key="payload:currentSection" value="Theory" />
+      <string key="payload:targetSection" value="Applied Physics" />
+    </event>
+    <event>
+      <string key="concept:name" value="ReceivingSectionInformed" />
+      <date key="time:timestamp" value="2026-11-23T20:42:22.609378+00:00" />
+      <string key="org:resource" value="current-department" />
+      <string key="transfer_id" value="T-103-1795466540" />
+      <string key="case_id" value="T-103-1795466540" />
+      <string key="payload:targetSection" value="Applied Physics" />
+    </event>
+    <event>
+      <string key="concept:name" value="InternalFundingRedistributionRecorded" />
+      <date key="time:timestamp" value="2026-11-23T20:42:22.645371+00:00" />
+      <string key="org:resource" value="current-department" />
+      <string key="transfer_id" value="T-103-1795466540" />
+      <string key="case_id" value="T-103-1795466540" />
+      <string key="payload:moneyMoved" value="False" />
+    </event>
+    <event>
+      <string key="concept:name" value="ProfessorSectionUpdated" />
+      <date key="time:timestamp" value="2026-11-23T20:42:22.677161+00:00" />
+      <string key="org:resource" value="professor" />
+      <string key="transfer_id" value="T-103-1795466540" />
+      <string key="case_id" value="T-103-1795466540" />
+      <string key="payload:professorId" value="P-103-1795466540" />
+      <string key="payload:targetSection" value="Applied Physics" />
+    </event>
+  </trace>
+</log>

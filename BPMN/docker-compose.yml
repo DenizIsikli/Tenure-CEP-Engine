@@ -1,0 +1,119 @@
+services:
+  communication:
+    build: ./deployer
+    container_name: communication
+    environment:
+      ZEEBE_ADDRESS: zeebe:26500
+      BPMN_FILE: /bpmn/prof_move_dept_to_be.bpmn
+      SIDDHI_CALLBACK_URL: http://siddhi:7072/middleman
+      FUTURE_DEPARTMENT_URL: http://future-department:5002
+      RESEARCH_IMPORTANCE_THRESHOLD: ${RESEARCH_IMPORTANCE_THRESHOLD:-5}
+      DATABASE_PATH: /data/professor_transfers.sqlite3
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./bpmn:/bpmn:ro
+      - professor-transfer-data:/data
+    depends_on:
+      zeebe:
+        condition: service_started
+      siddhi:
+        condition: service_started
+      future-department:
+        condition: service_healthy
+    restart: unless-stopped
+
+  future-department:
+    build: ./future_department
+    container_name: future-department
+    environment:
+      DATABASE_PATH: /data/future_department.sqlite3
+      COMMUNICATION_CALLBACK_URL: http://communication:5001/future-department/message
+    ports:
+      - "5002:5002"
+    volumes:
+      - ./future_department/data:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5002/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 5s
+    restart: unless-stopped
+
+  siddhi:
+    platform: linux/amd64  # Siddhi image is AMD64; use Docker emulation on ARM Macs.
+    build: ./siddhi
+    container_name: siddhi-runtime
+    ports:
+      - "7071:7071"
+      - "7072:7072"
+      - "7073:7073"
+      - "9390:9390"
+    restart: unless-stopped
+
+  logging-service:
+    build: ./logging_service
+    container_name: logging-service
+    ports:
+      - "5010:5010"
+    volumes:
+      - ./logging_service/logs:/logs
+      - ./logging_service/XES:/XES
+    restart: unless-stopped
+
+  zeebe:
+    image: camunda/zeebe:8.8.0
+    container_name: zeebe
+    ports:
+      - "26501:26500"
+      - "9601:9600"
+    environment:
+      CAMUNDA_SECURITY_AUTHENTICATION_UNPROTECTEDAPI: "true"
+      CAMUNDA_SECURITY_AUTHORIZATIONS_ENABLED: "false"
+      # Camunda 8.8: configure secondary storage to auto-enable the Camunda Exporter.
+      CAMUNDA_DATA_SECONDARYSTORAGE_TYPE: elasticsearch
+      CAMUNDA_DATA_SECONDARYSTORAGE_ELASTICSEARCH_URL: http://elasticsearch:9200
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    restart: unless-stopped
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.17.3
+    container_name: elasticsearch
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:9200/_cluster/health > /dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    restart: unless-stopped
+
+  operate:
+    image: camunda/operate:8.8.0
+    container_name: operate
+    ports:
+      - "8081:8080"
+    depends_on:
+      zeebe:
+        condition: service_started
+      elasticsearch:
+        condition: service_healthy
+    environment:
+      CAMUNDA_OPERATE_ZEEBE_GATEWAYADDRESS: zeebe:26500
+      # Use the same Camunda 8.8 secondary-storage endpoint as Zeebe.
+      CAMUNDA_DATA_SECONDARYSTORAGE_TYPE: elasticsearch
+      CAMUNDA_DATA_SECONDARYSTORAGE_ELASTICSEARCH_URL: http://elasticsearch:9200
+      CAMUNDA_SECURITY_AUTHENTICATION_UNPROTECTEDAPI: "true"
+      CAMUNDA_SECURITY_AUTHORIZATIONS_ENABLED: "false"
+    restart: unless-stopped
+
+volumes:
+  professor-transfer-data:
