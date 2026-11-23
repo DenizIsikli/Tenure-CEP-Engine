@@ -3,6 +3,7 @@ x-proof-log: &proof-log "${LOG_DIR:-${HOME:-${USERPROFILE}}/Desktop}:/logs"
 services:
   siddhi:
     image: siddhiio/siddhi-runner-alpine
+    platform: linux/amd64
     user: root
     command: -Dapps=/apps/P4Events.siddhi
     ports: ["8006:8006"]
@@ -10,7 +11,7 @@ services:
     volumes: ["./siddhi/P4Events.siddhi:/apps/P4Events.siddhi:ro", *proof-log]
 
   pais:
-    build: ./pais/dcr
+    build: ./pais
     ports: ["8090:8090"]
     environment:
       SIDDHI_URL: http://siddhi:8006/dcr-events

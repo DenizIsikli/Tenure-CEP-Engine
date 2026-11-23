@@ -20,7 +20,7 @@ Only Docker is needed:
 
 ```bash
 git clone git@github.com:DenizIsikli/Tenure-CEP-Engine.git
-cd Tenure-CEP-Engine
+cd Tenure-CEP-Engine/DCR
 docker compose up --build
 ```
 
@@ -35,7 +35,7 @@ This starts Siddhi, the PAIS and the poller, and plays through a demo case:
 
 Stop with Ctrl+C, clean up with `docker compose down`.
 
-Upload `output/p4_log.xes` and `pais/dcr/p4_career_advancement_tobe.xml` to the conformance
+Upload `output/p4_log.xes` and `pais/p4_career_advancement_tobe.xml` to the conformance
 checker at https://processdoctor.compute.dtu.dk/.
 
 ## Manual setup
@@ -72,8 +72,8 @@ Install Docker Desktop, Node.js LTS and Python 3 as above; Git and curl are incl
 
 ```bash
 git clone git@github.com:DenizIsikli/Tenure-CEP-Engine.git
-cd Tenure-CEP-Engine
-cd pais/dcr && npm install && cd ../..   # also downloads processdoctor's DCR engine into vendor/
+cd Tenure-CEP-Engine/DCR
+cd pais && npm install && cd ../..   # also downloads processdoctor's DCR engine into vendor/
 ```
 
 ### 3. Start Siddhi (terminal 1)
@@ -99,7 +99,7 @@ the file there. Only one of the two can run at a time.
 ### 4. Start the DCR PAIS (terminal 2)
 
 ```bash
-cd pais/dcr
+cd pais
 npm start          # → DCR PAIS on http://localhost:8090
 ```
 
@@ -138,7 +138,7 @@ curl -XPOST $P/cases/case1/events/transfer
 curl $P/log.xes > p4_log.xes
 ```
 
-Upload `p4_log.xes` and `pais/dcr/p4_career_advancement_tobe.xml` to the conformance
+Upload `p4_log.xes` and `pais/p4_career_advancement_tobe.xml` to the conformance
 checker at https://processdoctor.compute.dtu.dk/.
 
 ## Useful
@@ -154,7 +154,7 @@ checker at https://processdoctor.compute.dtu.dk/.
 | Problem                                     | Fix                                                                      |
 | ------------------------------------------- | ------------------------------------------------------------------------ |
 | `permission denied ... docker.sock` (Linux) | Log out and in, or run `newgrp docker`                                   |
-| `tsx: not found` when starting the PAIS     | Run `npm install` in `pais/dcr` first                                    |
+| `tsx: not found` when starting the PAIS     | Run `npm install` in `pais` first                                    |
 | `Siddhi not reachable` in the PAIS          | Siddhi is not running yet; start it first                                |
 | `Dropping event at Sink 'http'` in Siddhi   | The PAIS is not running on port 8090; start it                           |
 | No `ResearchOutputUpdated` in Siddhi        | Check that the poller prints `sent ...`; delete the state file to resend |
