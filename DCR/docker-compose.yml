@@ -1,4 +1,4 @@
-x-proof-log: &proof-log "${LOG_DIR:-${HOME:-${USERPROFILE}}/Desktop}:/logs"
+x-proof-log: &proof-log "${LOG_DIR:-${HOME:-${USERPROFILE:-}}/Desktop}:/logs"
 
 services:
   siddhi:
@@ -39,6 +39,7 @@ services:
       LOG_FILE: /logs/p4_proof_log.txt
       OPENALEX_API_KEY: ${OPENALEX_API_KEY:-}
     volumes: [*proof-log]
+    tmpfs: ["/app/state"]
     depends_on:
       case-setup: { condition: service_completed_successfully }
 

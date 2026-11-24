@@ -10,14 +10,14 @@ log() {  # append one line to the shared proof log
   echo "$(date -u '+%Y-%m-%d %H:%M:%S') [USER] $1 | case=$C" >> "$LOG"
 }
 
-wait_for() {  # wait until a URL answers at all
-  until [ "$(curl -s -o /dev/null -w '%{http_code}' "$1")" != "000" ]; do sleep 2; done
+wait_for() {  # wait until a URL answers at all (POST, since Siddhi's HTTP sources reject GET)
+  until [ "$(curl -s -o /dev/null -w '%{http_code}' -XPOST "$1")" != "000" ]; do sleep 2; done
 }
 
 if [ "$1" = "setup" ]; then
   echo "=== P4 tenure-track demo, run started $(date -u '+%Y-%m-%d %H:%M:%S') (UTC) ===" > "$LOG"
   echo "Waiting for PAIS and Siddhi..."
-  wait_for "$P/health"; wait_for "$S/dcr-events"
+  wait_for "$P/health"; wait_for "$S/ready"
   log "HR creates case and runs the first years"
   curl -s -XPOST "$P/cases" -d '{"caseId":"'$C'","authorId":"A5069386704","start":"2021-01-01"}'
   for e in start plan mentor vision udtu portfolio midterm; do
