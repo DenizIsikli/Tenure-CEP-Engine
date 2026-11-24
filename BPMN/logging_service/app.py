@@ -1,8 +1,11 @@
+import threading
 from flask import Flask, request, jsonify
 from datetime import datetime, timezone
 from pathlib import Path
 import json
 import xml.etree.ElementTree as ET
+
+LOCK = threading.Lock()
 
 app = Flask(__name__)
 
@@ -122,11 +125,12 @@ def build_xes(events):
         trace = ET.SubElement(root, "trace")
         ET.SubElement(trace, "string", {"key": "concept:name", "value": str(case_id)})
 
-        for event in case_events:
+        for event in sorted(case_events, key=lambda e: e.get("timestamp", "")):
             event_el = ET.SubElement(trace, "event")
             ET.SubElement(event_el, "string", {"key": "concept:name", "value": str(event.get("event", "unknown"))})
             ET.SubElement(event_el, "date", {"key": "time:timestamp", "value": str(event.get("timestamp", utc_now_iso()))})
             ET.SubElement(event_el, "string", {"key": "org:resource", "value": str(event.get("role", "system"))})
+            ET.SubElement(event_el, "string", {"key": "role", "value": str(event.get("role", "system"))})
 
             if event.get("transfer_id"):
                 ET.SubElement(event_el, "string", {"key": "transfer_id", "value": str(event["transfer_id"])})
@@ -163,18 +167,19 @@ def log_event():
 
     event = normalize_event_payload(data)
 
-    try:
-        if EVENT_STORE.exists():
-            with open(EVENT_STORE, "r", encoding="utf-8") as f:
-                events = json.load(f)
-        else:
+    with LOCK:
+        try:
+            if EVENT_STORE.exists():
+                with open(EVENT_STORE, "r", encoding="utf-8") as f:
+                    events = json.load(f)
+            else:
+                events = []
+        except (json.JSONDecodeError, OSError):
             events = []
-    except (json.JSONDecodeError, OSError):
-        events = []
 
-    events.append(event)
-    write_json_store(events)
-    build_xes(events)
+        events.append(event)
+        write_json_store(events)
+        build_xes(events)
 
     print(
         f"[XES] Logged event={event['event']} transfer_id={event['transfer_id']} "
@@ -185,4 +190,5 @@ def log_event():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5010)
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=5010, threads=8)

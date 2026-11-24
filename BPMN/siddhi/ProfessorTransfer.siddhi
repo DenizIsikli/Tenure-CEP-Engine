@@ -76,6 +76,7 @@ define stream StartTransferOut(
     type='http',
     publisher.url='http://logging-service:5010/log',
     method='POST',
+    on.error='WAIT',
     @map(type='json')
 )
 define stream Logging(

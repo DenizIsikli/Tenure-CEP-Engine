@@ -97,7 +97,7 @@ async function autoRun(id: string) {
 
 function xes() {
     const ev = (l: any) =>
-        `<event><string key="concept:name" value="${l.label}"/><string key="org:resource" value="${l.role}"/>` +
+        `<event><string key="concept:name" value="${l.label}"/><string key="org:resource" value="${l.role}"/><string key="role" value="${l.role}"/>` +
         `<date key="time:timestamp" value="${l.time}"/></event>`;
     return (
         '<?xml version="1.0" encoding="UTF-8"?>\n<log xes.version="1.0" xmlns="http://www.xes-standard.org/">\n' +

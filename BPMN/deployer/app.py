@@ -18,6 +18,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+import time
+from pyzeebe.errors.zeebe_errors import ZeebeBackPressureError
+
 import requests
 from flask import Flask, jsonify, request
 
@@ -375,7 +378,15 @@ def start_transfer():
             return jsonify({"error": "Zeebe is not ready yet"}), 503
         save_transfer(transfer_id, variables)
         upsert_professor(variables)
-        result = run_async(client.run_process(PROFESSOR_PROCESS_ID, variables=variables))
+        result = None
+        for attempt in range(10):
+            try:
+                result = run_async(client.run_process(PROFESSOR_PROCESS_ID, variables=variables))
+                break
+            except ZeebeBackPressureError:
+                if attempt == 9:
+                    raise
+                time.sleep(2)
         process_key = getattr(result, "process_instance_key", result)
         return jsonify({
             "status": "started", "transferId": transfer_id,
